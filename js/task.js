@@ -111,14 +111,13 @@ timeline.push(welcome);
 
 /* define instructions trial */
 
-
 var instructions_2 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `<p>In this game, you will see animals sitting on the benches in the park.
-  Each day, the animals may sit in different places.</p>
+  stimulus: `<p>In this game, you will see different animals come the park and sit on the benches with their friend.<br>
+  Each day, the animals might sit in different places but the friends will sit together.<br></p>
   <p>Try and remember where they were sitting!</p>
   
-  <img src="stim/stim_example.png" width="800">,
+  <img src="stim/stim_example.png" width="800">
   `,
   choices: ["Next"]
 }
@@ -126,8 +125,8 @@ timeline.push(instructions_2);
 
 var instructions_3 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `<p>The animals will head home. Can you remember which animal was sitting in the bright white box?</p>
-  <p>Touch which animal you think it was. A bright tone means you got it right! A sad tone means you got it wrong.</p>
+  stimulus: `<p>At the end of the day, the animals will head home. Can you remember which animal was sitting in the bright white box?<br></p>
+  <p>Touch which animal you think it was. A bright tone means you got it right! A sad tone means you got it wrong.<br></p>
   
   <img src="stim/response_example.png" width="800">
   `,
