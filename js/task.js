@@ -14,6 +14,8 @@
 // TASK SET-UP
 var jsPsych = initJsPsych({ show_progress_bar: true });
 
+jsPsych.data.addProperties({ start_time: (new Date()).toISOString() });
+
 // DATA PIPE SET-UP
 const expID = "mGOkN3CyrUvB"
 const fileID = `${jsPsych.randomization.randomID(10)}`
