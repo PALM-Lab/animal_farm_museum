@@ -12,7 +12,9 @@
  **/
 
 // TASK SET-UP
-var jsPsych = initJsPsych({ show_progress_bar: true });
+var jsPsych = initJsPsych({ show_progress_bar: true,
+  auto_update_progress_bar: false
+ });
 
 jsPsych.data.addProperties({ start_time: (new Date()).toISOString() });
 
@@ -238,6 +240,9 @@ var trial = {
     data.trial_animals = trial_animals
   },
   on_finish: function (data) {
+    var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+    jsPsych.setProgressBar(curr_progress_bar_value + (1/n_trials));
+
     data.test_position = Number(test_location)
     data.correct_animal = Number(trial_animals[Math.floor(test_location / 2)][test_location % 2].replace(/^\D+|\D+$/g, ''))
     data.correct = data.response == data.correct_animal;
