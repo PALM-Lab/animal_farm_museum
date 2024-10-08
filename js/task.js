@@ -117,8 +117,8 @@ timeline.push(welcome);
 
 var instructions_2 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `<p>In this game, you will see different animals come the park and sit on the benches with their best friend.<br>
-  Each day, the animals might sit in different places but the friends will sit together.<br></p>
+  stimulus: `<p>In this game, you will see different animals come to the park and sit on the benches with their best friend.<br>
+  Each day, the animals might sit in different places but best friends will sit together.<br></p>
   <p>Try and remember where they were sitting, and which animals are best friends!</p>
   
   <img src="stim/stim_example.png" width="800">
@@ -141,7 +141,7 @@ timeline.push(instructions_3);
 
 var instructions_4 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: '<p>At the end, you will be tested on which animals were best friends, so don\'t forget!<br><br>Are you ready?</p><br>',
+  stimulus: '<p>At the end, you will be asked which animals were best friends, so don\'t forget!<br><br>Are you ready?</p><br>',
   choices: ["YES!"]
 }
 timeline.push(instructions_4);
@@ -309,7 +309,7 @@ timeline.push(trial_procedure);
 /* prompt awareness test */
 var awareness_instructions = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: '<p>Can you remember which animals were best friends?<br><br>Press the animal that you think was the best friend of the one you see!</p>',
+  stimulus: '<p>Can you remember which animals were best friends?<br><br>Press the animal that you think was their best friend!</p>',
   choices: ["Next"]
 };
 timeline.push(awareness_instructions);
