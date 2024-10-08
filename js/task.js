@@ -9,6 +9,8 @@
  * then test memory for animals
  *
  * started coding: 4/7/24
+ * day 1+2 - without explicit instruction of pairs
+ * day 3+4 - with explicit instruction of pairs
  **/
 
 // TASK SET-UP
@@ -19,7 +21,7 @@ var jsPsych = initJsPsych({ show_progress_bar: true,
 jsPsych.data.addProperties({ start_time: (new Date()).toISOString() });
 
 // DATA PIPE SET-UP
-const expID = "mGOkN3CyrUvB"
+const expID = "utfTPLKhyjKM"
 const fileID = `${jsPsych.randomization.randomID(10)}`
 
 // DEFINE EXPERIMENT VARIABLES
@@ -115,9 +117,9 @@ timeline.push(welcome);
 
 var instructions_2 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `<p>In this game, you will see different animals come the park and sit on the benches with their friend.<br>
+  stimulus: `<p>In this game, you will see different animals come the park and sit on the benches with their best friend.<br>
   Each day, the animals might sit in different places but the friends will sit together.<br></p>
-  <p>Try and remember where they were sitting!</p>
+  <p>Try and remember where they were sitting, and which animals are best friends!</p>
   
   <img src="stim/stim_example.png" width="800">
   `,
@@ -139,7 +141,7 @@ timeline.push(instructions_3);
 
 var instructions_4 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: '<p>Are you ready?</p><br>',
+  stimulus: '<p>At the end, you will be tested on which animals were best friends, so don\'t forget!<br><br>Are you ready?</p><br>',
   choices: ["YES!"]
 }
 timeline.push(instructions_4);
@@ -304,6 +306,14 @@ var trial_procedure = {
 };
 timeline.push(trial_procedure);
 
+/* prompt awareness test */
+var awareness_instructions = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: '<p>Can you remember which animals were best friends?<br><br>Press the animal that you think was the best friend of the one you see!</p>',
+  choices: ["Next"]
+};
+timeline.push(awareness_instructions);
+
 /* define awareness test */
 var awareness_test = {
   timeline: [{
@@ -318,7 +328,7 @@ var awareness_test = {
       ctx.drawImage(img, x = 0, y = 0, width = item_size, height = item_size)
     }
   }],
-  prompt: "Which animal was their friend?",
+  prompt: "Which animal was their best friend?",
   button_html: '<img src=%choice% width="100" height="100"></img>',
   choices: animals,
   canvas_size: [item_size, item_size],
