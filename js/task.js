@@ -11,6 +11,7 @@
  * started coding: 4/7/24
  * day 1+2 - without explicit instruction of pairs
  * day 3+4 - with explicit instruction of pairs
+ * day 5+6 – with more explicit instructions of pairs
  **/
 
 // TASK SET-UP
@@ -21,7 +22,7 @@ var jsPsych = initJsPsych({ show_progress_bar: true,
 jsPsych.data.addProperties({ start_time: (new Date()).toISOString() });
 
 // DATA PIPE SET-UP
-const expID = "utfTPLKhyjKM"
+const expID = "76blixxjyUJ4" // updated Apr 8
 const fileID = `${jsPsych.randomization.randomID(10)}`
 
 // DEFINE EXPERIMENT VARIABLES
@@ -60,6 +61,17 @@ let item_locs = [
   [canvas_width / 2 + item_size * 1.7, canvas_height / 2 - 25],
   [canvas_width / 2 + item_size * 2.7, canvas_height / 2 - 25]
 ]; // draws from the top-left
+
+let pair_locs = [
+  [canvas_width / 2 + item_size * -2.3, canvas_height / 2 + item_size * -1],
+  [canvas_width / 2 + item_size * -1.3, canvas_height / 2 + item_size * -1],
+  [canvas_width / 2 + item_size * -2.3, canvas_height / 2 + item_size * 1],
+  [canvas_width / 2 + item_size * -1.3, canvas_height / 2 + item_size * 1],
+  [canvas_width / 2 + item_size * .7, canvas_height / 2 + item_size * -1],
+  [canvas_width / 2 + item_size * 1.7, canvas_height / 2 + item_size * -1],
+  [canvas_width / 2 + item_size * .7, canvas_height / 2 + item_size * 1],
+  [canvas_width / 2 + item_size * 1.7, canvas_height / 2 + item_size * 1]
+];
 
 // RANDOMIZATION
 let animal_pairs = createAnimalPairs() // create ordered list of animals
@@ -114,22 +126,21 @@ var welcome = {
 timeline.push(welcome);
 
 /* define instructions trial */
-
-var instructions_2 = {
+var instructions_1 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `<p>In this game, you will see different animals come to the park and sit on the benches with their best friend.<br>
-  Each day, the animals might sit in different places but best friends will sit together.<br></p>
-  <p>Try and remember where they were sitting, and which animals are best friends!</p>
+  stimulus: `<p>In this game, different animals come to the park and sit on the benches with their best friend.<br>
+  The best friends will always sit next to each other.<br></p>
+  <p>You will have to try and remember where they were sitting!</p>
   
   <img src="stim/stim_example.png" width="800">
   `,
   choices: ["Next"]
 }
-timeline.push(instructions_2);
+timeline.push(instructions_1);
 
-var instructions_3 = {
+var instructions_2 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `<p>At the end of the day, the animals will head home. Can you remember which animal was sitting in the bright white box?<br></p>
+  stimulus: `<p>At the end of each day, the animals head home. Can you remember which animal was sitting in the bright white box?<br></p>
   <p>Touch which animal you think it was. A bright tone means you got it right! A sad tone means you got it wrong.<br></p>
   
   <img src="stim/response_example.png" width="800">
@@ -137,11 +148,42 @@ var instructions_3 = {
 
   choices: ["Next"]
 }
+timeline.push(instructions_2);
+
+var instructions_3 = {
+  type: jsPsychCanvasButtonResponse,
+  stimulus: draw_pairs,
+  prompt: `<p>These animals are best friends!<p>
+  <p>Can you remember who is best friends with who?<p>
+  <p>At the end, we will test you, so don't forget!</p>
+  `,
+  choices: ["Next"],
+  margin_vertical: '10px',
+  canvas_size: [canvas_height-100 + canvas_offset_diff, canvas_width] // adjusted height to fit
+}
 timeline.push(instructions_3);
+
+function draw_pairs(c) {
+  var ctx = c.getContext("2d");
+  trial_animals = animal_pairs
+
+  for (var i = 0; i < 4; i++) {
+
+    var img = new Image();
+    img.src = trial_animals[i][0];
+    ctx.drawImage(img, x = pair_locs[2 * i][0], y = pair_locs[2 * i][1], width = item_size, height = item_size)
+
+    var img = new Image();
+    img.src = trial_animals[i][1];
+    ctx.drawImage(img, x = pair_locs[2 * i + 1][0], y = pair_locs[2 * i + 1][1], width = item_size, height = item_size)
+
+  }
+}
 
 var instructions_4 = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: '<p>At the end, you will be asked which animals were best friends, so don\'t forget!<br><br>Are you ready?</p><br>',
+  stimulus: `<p>Are you ready?</p><br>
+  `,
   choices: ["YES!"]
 }
 timeline.push(instructions_4);
